@@ -67,23 +67,19 @@ def describe_route(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def describe_one_route(payload: dict[str, Any]) -> dict[str, Any]:
-    return describe_route(payload)
-
-
-def describe_all_route() -> dict[str, Any]:
-    return describe_route({"run_all": True})
-
-
 def _demo() -> None:
+    
     print("Demo: process one image by name")
     one = describe_route({"image": "Acura_005.jpg"})
     print(json.dumps(one, indent=2, ensure_ascii=False))
+
     print("\nDemo: process one image by full file path")
     one_path = describe_route({"path": "./image/Acura_006.jpg"})
     print(json.dumps(one_path, indent=2, ensure_ascii=False))
+
     print("\nDemo: process all images from a directory path")
-    print(json.dumps({"hint": "call describe_route({'path': './image'})"}, indent=2))
+    all_result = describe_route({"path": "./image"})
+    print(json.dumps(all_result, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":
