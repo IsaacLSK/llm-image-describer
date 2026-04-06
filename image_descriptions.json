@@ -1,182 +1,8 @@
 {
-  "Acura_000.jpg": {
-    "search_text": "Orange Acura RDX SUV driving at sunset in open terrain | Orange Acura RDX crossover SUV driving on a road in a scenic open landscape with golden hour sunset sky, featuring prominent Acura grille, black accents, and motion blur indicating speed. | Acura | RDX | crossover SUV | orange | open road with grassy dunes | golden hour sunset | front three-quarter angle | driving forward with motion blur | orange body | black wheel rims | Acura grille badge | black roof rails | LED headlights | sunset sky | motion blur on wheels | orange Acura RDX SUV front view driving | orange crossover SUV sunset road | Acura RDX golden hour motion | orange SUV open landscape dusk | Acura crossover black wheels driving sunset",
+  "test.jpg": {
+    "search_text": "Silver Acura TLX sedan parked on street | Silver Acura TLX sedan parked on a residential street in front of a white picket fence and houses, viewed from the side at a slight angle showing front quarter, with alloy wheels, yellow license plate, and clear daylight conditions. | Acura | TLX | sedan | silver | residential street | daylight | side front quarter | stationary | silver exterior | four-door sedan | alloy wheels | chrome accents | white picket fence background | yellow license plate | residential houses | silver Acura sedan side view | Acura TLX parked on street | gray four-door car residential area | silver sedan with alloy wheels | Acura TLX daylight street parking",
     "structured": {
-      "long_description": "Orange Acura RDX crossover SUV driving on a road in a scenic open landscape with golden hour sunset sky, featuring prominent Acura grille, black accents, and motion blur indicating speed.",
-      "short_caption": "Orange Acura RDX SUV driving at sunset in open terrain",
-      "vehicle": {
-        "make": "Acura",
-        "model_guess": "RDX",
-        "body_style": "crossover SUV",
-        "color": "orange"
-      },
-      "scene": {
-        "environment": "open road with grassy dunes",
-        "lighting": "golden hour sunset",
-        "camera_view": "front three-quarter angle",
-        "motion": "driving forward with motion blur"
-      },
-      "visual_attributes": [
-        "orange body",
-        "black wheel rims",
-        "Acura grille badge",
-        "black roof rails",
-        "LED headlights",
-        "sunset sky",
-        "motion blur on wheels"
-      ],
-      "query_phrases": [
-        "orange Acura RDX SUV front view driving",
-        "orange crossover SUV sunset road",
-        "Acura RDX golden hour motion",
-        "orange SUV open landscape dusk",
-        "Acura crossover black wheels driving sunset"
-      ]
-    }
-  },
-  "Acura_001.jpg": {
-    "search_text": "White Acura MDX SUV front three-quarter view | Front three-quarter view of a white Acura MDX SUV on a plain white background. Features Acura grille, LED headlights, blacked-out trim, panoramic sunroof, 20-inch dark alloy wheels, and silver roof rails. | Acura | MDX | SUV | white | studio | bright even studio light | front three-quarter | stationary | white exterior | Acura grille | LED headlights | panoramic sunroof | 20-inch dark alloy wheels | silver roof rails | black trim accents | white Acura MDX front view | white SUV front three quarter studio | Acura MDX white with black wheels | luxury white SUV Acura front angle",
-    "structured": {
-      "long_description": "Front three-quarter view of a white Acura MDX SUV on a plain white background. Features Acura grille, LED headlights, blacked-out trim, panoramic sunroof, 20-inch dark alloy wheels, and silver roof rails.",
-      "short_caption": "White Acura MDX SUV front three-quarter view",
-      "vehicle": {
-        "make": "Acura",
-        "model_guess": "MDX",
-        "body_style": "SUV",
-        "color": "white"
-      },
-      "scene": {
-        "environment": "studio",
-        "lighting": "bright even studio light",
-        "camera_view": "front three-quarter",
-        "motion": "stationary"
-      },
-      "visual_attributes": [
-        "white exterior",
-        "Acura grille",
-        "LED headlights",
-        "panoramic sunroof",
-        "20-inch dark alloy wheels",
-        "silver roof rails",
-        "black trim accents"
-      ],
-      "query_phrases": [
-        "white Acura MDX front view",
-        "white SUV front three quarter studio",
-        "Acura MDX white with black wheels",
-        "luxury white SUV Acura front angle"
-      ]
-    }
-  },
-  "Acura_002.jpg": {
-    "search_text": "Silver Acura sedan front three-quarter view | Front three-quarter view of a silver Acura sedan with prominent Acura grille, LED headlights, blacked-out windows, alloy wheels, and sporty aerodynamic styling on a plain white background. | Acura | Integra | sedan | silver | studio | studio even lighting | front three-quarter | stationary | silver exterior | Acura grille | LED headlights | black windows | alloy wheels | sporty fenders | white background | silver Acura sedan front view | Acura sports sedan three-quarter | silver luxury sedan studio shot | Acura with alloy wheels front angle | modern silver Acura car",
-    "structured": {
-      "long_description": "Front three-quarter view of a silver Acura sedan with prominent Acura grille, LED headlights, blacked-out windows, alloy wheels, and sporty aerodynamic styling on a plain white background.",
-      "short_caption": "Silver Acura sedan front three-quarter view",
-      "vehicle": {
-        "make": "Acura",
-        "model_guess": "Integra",
-        "body_style": "sedan",
-        "color": "silver"
-      },
-      "scene": {
-        "environment": "studio",
-        "lighting": "studio even lighting",
-        "camera_view": "front three-quarter",
-        "motion": "stationary"
-      },
-      "visual_attributes": [
-        "silver exterior",
-        "Acura grille",
-        "LED headlights",
-        "black windows",
-        "alloy wheels",
-        "sporty fenders",
-        "white background"
-      ],
-      "query_phrases": [
-        "silver Acura sedan front view",
-        "Acura sports sedan three-quarter",
-        "silver luxury sedan studio shot",
-        "Acura with alloy wheels front angle",
-        "modern silver Acura car"
-      ]
-    }
-  },
-  "Acura_003.jpg": {
-    "search_text": "Acura TLX black interior dashboard with Apple CarPlay | Interior view of Acura TLX dashboard and driver's seat, featuring a black leather steering wheel with Acura emblem, digital instrument cluster, central infotainment screen displaying Apple CarPlay interface with app icons, climate controls, gear selector, red seat upholstery, and carpeted floor mats. | Acura | TLX | sedan | black | vehicle interior | studio | driver's perspective | stationary | black leather steering wheel | digital gauges | Apple CarPlay screen | infotainment display | red seats | dashboard controls | gear shifter | Acura TLX interior dashboard | black Acura sedan cabin Apple CarPlay | driver view Acura TLX steering wheel | luxury sedan black interior studio shot | Acura TLX infotainment screen red seats",
-    "structured": {
-      "long_description": "Interior view of Acura TLX dashboard and driver's seat, featuring a black leather steering wheel with Acura emblem, digital instrument cluster, central infotainment screen displaying Apple CarPlay interface with app icons, climate controls, gear selector, red seat upholstery, and carpeted floor mats.",
-      "short_caption": "Acura TLX black interior dashboard with Apple CarPlay",
-      "vehicle": {
-        "make": "Acura",
-        "model_guess": "TLX",
-        "body_style": "sedan",
-        "color": "black"
-      },
-      "scene": {
-        "environment": "vehicle interior",
-        "lighting": "studio",
-        "camera_view": "driver's perspective",
-        "motion": "stationary"
-      },
-      "visual_attributes": [
-        "black leather steering wheel",
-        "digital gauges",
-        "Apple CarPlay screen",
-        "infotainment display",
-        "red seats",
-        "dashboard controls",
-        "gear shifter"
-      ],
-      "query_phrases": [
-        "Acura TLX interior dashboard",
-        "black Acura sedan cabin Apple CarPlay",
-        "driver view Acura TLX steering wheel",
-        "luxury sedan black interior studio shot",
-        "Acura TLX infotainment screen red seats"
-      ]
-    }
-  },
-  "Acura_004.jpg": {
-    "search_text": "Blue Acura TLX sedan speeding on desert road | Blue Acura TLX sedan driving on a straight rural road with desert shrubbery on the right side, angled front-right three-quarter view, motion blur on wheels indicating speed, daylight conditions. | Acura | TLX | sedan | blue | rural desert road | daylight | front-right three-quarter | moving forward | blue sedan | sporty design | chrome accents | alloy wheels | motion blur | straight road | desert shrubs | yellow center line | blue Acura TLX sedan driving on desert road | sporty blue sedan front view motion | Acura TLX on rural highway daylight | blue four-door sedan speeding desert scene",
-    "structured": {
-      "long_description": "Blue Acura TLX sedan driving on a straight rural road with desert shrubbery on the right side, angled front-right three-quarter view, motion blur on wheels indicating speed, daylight conditions.",
-      "short_caption": "Blue Acura TLX sedan speeding on desert road",
-      "vehicle": {
-        "make": "Acura",
-        "model_guess": "TLX",
-        "body_style": "sedan",
-        "color": "blue"
-      },
-      "scene": {
-        "environment": "rural desert road",
-        "lighting": "daylight",
-        "camera_view": "front-right three-quarter",
-        "motion": "moving forward"
-      },
-      "visual_attributes": [
-        "blue sedan",
-        "sporty design",
-        "chrome accents",
-        "alloy wheels",
-        "motion blur",
-        "straight road",
-        "desert shrubs",
-        "yellow center line"
-      ],
-      "query_phrases": [
-        "blue Acura TLX sedan driving on desert road",
-        "sporty blue sedan front view motion",
-        "Acura TLX on rural highway daylight",
-        "blue four-door sedan speeding desert scene"
-      ]
-    }
-  },
-  "Acura_005.jpg": {
-    "search_text": "Silver Acura TLX sedan parked on street | Silver Acura TLX sedan parked on a residential street in front of a white picket fence and house. Side view showing front quarter, with alloy wheels, visible license plate, and clear daylight conditions. | Acura | TLX | sedan | silver | residential street | daylight | side front quarter | stationary | silver color | four-door sedan | alloy wheels | white picket fence background | residential house | license plate visible | chrome accents | silver Acura sedan side view street | Acura TLX parked residential area | gray four-door sedan white fence | silver luxury sedan daylight side angle | Acura TLX alloy wheels street parked",
-    "structured": {
-      "long_description": "Silver Acura TLX sedan parked on a residential street in front of a white picket fence and house. Side view showing front quarter, with alloy wheels, visible license plate, and clear daylight conditions.",
+      "long_description": "Silver Acura TLX sedan parked on a residential street in front of a white picket fence and houses, viewed from the side at a slight angle showing front quarter, with alloy wheels, yellow license plate, and clear daylight conditions.",
       "short_caption": "Silver Acura TLX sedan parked on street",
       "vehicle": {
         "make": "Acura",
@@ -191,20 +17,20 @@
         "motion": "stationary"
       },
       "visual_attributes": [
-        "silver color",
+        "silver exterior",
         "four-door sedan",
         "alloy wheels",
+        "chrome accents",
         "white picket fence background",
-        "residential house",
-        "license plate visible",
-        "chrome accents"
+        "yellow license plate",
+        "residential houses"
       ],
       "query_phrases": [
-        "silver Acura sedan side view street",
-        "Acura TLX parked residential area",
-        "gray four-door sedan white fence",
-        "silver luxury sedan daylight side angle",
-        "Acura TLX alloy wheels street parked"
+        "silver Acura sedan side view",
+        "Acura TLX parked on street",
+        "gray four-door car residential area",
+        "silver sedan with alloy wheels",
+        "Acura TLX daylight street parking"
       ]
     }
   }
