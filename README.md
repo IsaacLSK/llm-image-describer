@@ -117,7 +117,7 @@ XAI_TIMEOUT=3600
 
 # Gemini config
 GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-2.0-flash
+GEMINI_MODEL=gemini-3.1-flash-lite-preview
 GEMINI_IMAGE_DETAIL=high
 GEMINI_TIMEOUT=3600
 GEMINI_API_BASE=https://generativelanguage.googleapis.com/v1beta
