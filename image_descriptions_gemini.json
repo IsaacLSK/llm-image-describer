@@ -1,0 +1,35 @@
+{
+  "Acura_005.jpg": {
+    "search_text": "Silver Acura TLX parked on a residential street | A silver Acura TLX mid-size luxury sedan parked on a residential asphalt street. The vehicle is captured from a front three-quarter angle, showing the signature Acura grille, sharp angular headlights, and multi-spoke alloy wheels. A white picket fence and a section of a house are visible in the background, suggesting a suburban environment under clear daylight conditions. | Acura | TLX | sedan | silver | residential street | daylight | front three-quarter | stationary | silver exterior | mid-size sedan | multi-spoke alloy wheels | jewel eye LED headlights | parked on asphalt | silver Acura TLX sedan front view | modern luxury sedan parked on street | Acura TLX silver exterior | suburban street with parked car | mid-size silver car 3/4 view",
+    "structured": {
+      "long_description": "A silver Acura TLX mid-size luxury sedan parked on a residential asphalt street. The vehicle is captured from a front three-quarter angle, showing the signature Acura grille, sharp angular headlights, and multi-spoke alloy wheels. A white picket fence and a section of a house are visible in the background, suggesting a suburban environment under clear daylight conditions.",
+      "short_caption": "Silver Acura TLX parked on a residential street",
+      "vehicle": {
+        "make": "Acura",
+        "model_guess": "TLX",
+        "body_style": "sedan",
+        "color": "silver"
+      },
+      "scene": {
+        "environment": "residential street",
+        "lighting": "daylight",
+        "camera_view": "front three-quarter",
+        "motion": "stationary"
+      },
+      "visual_attributes": [
+        "silver exterior",
+        "mid-size sedan",
+        "multi-spoke alloy wheels",
+        "jewel eye LED headlights",
+        "parked on asphalt"
+      ],
+      "query_phrases": [
+        "silver Acura TLX sedan front view",
+        "modern luxury sedan parked on street",
+        "Acura TLX silver exterior",
+        "suburban street with parked car",
+        "mid-size silver car 3/4 view"
+      ]
+    }
+  }
+}

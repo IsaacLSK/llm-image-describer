@@ -1,13 +1,13 @@
 # llm-image-testing
 
-Image description pipeline using xAI Grok vision models.
+Image description pipeline using xAI Grok and Gemini vision models.
 
-This project reads car images, sends them to Grok, and stores structured description results in JSON.
+This project reads car images, sends them to an LLM vision model, and stores structured description results in JSON.
 
 ## What This Project Does
 
 - Reads images from a directory (`IMAGE_INPUT`)
-- Describes each image with Grok vision
+- Describes each image with Grok or Gemini vision
 - Writes results to a JSON file (`IMAGE_OUTPUT`)
 - Supports server-style route calls for:
 	- single image by name
@@ -16,8 +16,10 @@ This project reads car images, sends them to Grok, and stores structured descrip
 
 ## Project Files
 
-- `grok_image_describer.py`: Core pipeline logic and CLI
-- `route.py`: Simple route-style wrapper/demo for server integration
+- `grok_image_describer.py`: Core Grok pipeline logic and CLI
+- `gemini_image_describer.py`: Core Gemini pipeline logic and CLI
+- `route.py`: Grok route-style wrapper/demo for server integration
+- `route_gemini.py`: Gemini route-style wrapper/demo for server integration
 - `.env`: Local runtime configuration (not committed)
 - `.env.example`: Shared config template for teammates
 - `image/`: Input images
@@ -26,7 +28,7 @@ This project reads car images, sends them to Grok, and stores structured descrip
 ## Prerequisites
 
 - Python 3.10+ (3.11 recommended)
-- xAI API key
+- xAI API key and/or Gemini API key
 
 ## Library List
 
@@ -106,11 +108,20 @@ Copy-Item .env.example .env
 2. Edit `.env` and set your values:
 
 ```dotenv
+# Grok config
 XAI_API_KEY=your_xai_api_key_here
 XAI_BASE_URL=https://api.x.ai/v1
 XAI_MODEL=grok-4-1-fast-non-reasoning
 XAI_IMAGE_DETAIL=high
 XAI_TIMEOUT=3600
+
+# Gemini config
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.0-flash
+GEMINI_IMAGE_DETAIL=high
+GEMINI_TIMEOUT=3600
+GEMINI_API_BASE=https://generativelanguage.googleapis.com/v1beta
+GEMINI_IMAGE_OUTPUT=./image_descriptions_gemini.json
 
 IMAGE_INPUT=./image
 IMAGE_OUTPUT=./image_descriptions.json
@@ -118,25 +129,43 @@ IMAGE_OUTPUT=./image_descriptions.json
 
 ## How to Run
 
-### Core script (single image)
+### Grok core script (single image)
 
 ```powershell
 python grok_image_describer.py --image Acura_005.jpg
 ```
 
-### Core script (all images)
+### Grok core script (all images)
 
 ```powershell
 python grok_image_describer.py --all
 ```
 
-### Route demo
+### Grok route demo
 
 ```powershell
 python route.py
 ```
 
-## Server-Style Route Calls
+### Gemini core script (single image)
+
+```powershell
+python gemini_image_describer.py --image Acura_005.jpg
+```
+
+### Gemini core script (all images)
+
+```powershell
+python gemini_image_describer.py --all
+```
+
+### Gemini route demo
+
+```powershell
+python route_gemini.py
+```
+
+## Server-Style Route Calls (Grok)
 
 ### 1) By file name
 
@@ -164,6 +193,36 @@ result = route.describe_route({"path": "./image", "run_all": True})
 ```python
 import route
 result = route.describe_route({"path": "./image", "run_all": False})
+```
+
+## Server-Style Route Calls (Gemini)
+
+### 1) By file name
+
+```python
+import route_gemini
+result = route_gemini.describe_route({"image": "Acura_005.jpg"})
+```
+
+### 2) By file path
+
+```python
+import route_gemini
+result = route_gemini.describe_route({"path": "./image/Acura_004.jpg"})
+```
+
+### 3) By directory path (all)
+
+```python
+import route_gemini
+result = route_gemini.describe_route({"path": "./image", "run_all": True})
+```
+
+### 4) By directory path (first image only)
+
+```python
+import route_gemini
+result = route_gemini.describe_route({"path": "./image", "run_all": False})
 ```
 
 ## Output Format
@@ -199,5 +258,5 @@ Example structure in `image_descriptions.json`:
 ## Notes
 
 - Keep `.env` private; do not commit real API keys.
-- If your key was exposed, rotate it in xAI console.
+- If your key was exposed, rotate it in your provider console.
 - `.env` is ignored by git in this project.
