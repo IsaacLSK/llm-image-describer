@@ -1,70 +1,12 @@
 import json
-from pathlib import Path
 from typing import Any
 
 from grok_image_describer import run_pipeline
+from route_common import dispatch_route
 
 
 def describe_route(payload: dict[str, Any]) -> dict[str, Any]:
-    path_value = payload.get("path")
-    image = payload.get("image")
-    run_all = bool(payload.get("run_all", False))
-    image_input = payload.get("image_input")
-    image_output = payload.get("image_output")
-    model = payload.get("model")
-    detail = payload.get("detail")
-
-    # If path is provided, auto-detect file vs directory.
-    if path_value:
-        path = Path(path_value)
-        if path.is_dir():
-            result = run_pipeline(
-                run_all=True if payload.get("run_all") is None else run_all,
-                image_input=str(path),
-                image_output=image_output,
-                model=model,
-                detail=detail,
-            )
-            return {"ok": True, **result}
-        if path.is_file():
-            result = run_pipeline(
-                image=str(path),
-                run_all=False,
-                image_input=str(path.parent),
-                image_output=image_output,
-                model=model,
-                detail=detail,
-            )
-            return {"ok": True, **result}
-        return {"ok": False, "error": "Provided 'path' does not exist"}
-
-    # If image is provided, process a single file name or file path.
-    if image:
-        result = run_pipeline(
-            image=str(image),
-            run_all=False,
-            image_input=image_input,
-            image_output=image_output,
-            model=model,
-            detail=detail,
-        )
-        return {"ok": True, **result}
-
-    # If requested, process all images from the configured or provided input directory.
-    if run_all:
-        result = run_pipeline(
-            run_all=True,
-            image_input=image_input,
-            image_output=image_output,
-            model=model,
-            detail=detail,
-        )
-        return {"ok": True, **result}
-
-    return {
-        "ok": False,
-        "error": "Provide one of: path (file/dir), image (name/path), or run_all=true",
-    }
+    return dispatch_route(payload, run_pipeline)
 
 
 def _demo() -> None:

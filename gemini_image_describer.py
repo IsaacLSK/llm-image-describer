@@ -7,13 +7,19 @@ from pathlib import Path
 from typing import Any
 from urllib import error, parse, request
 
+from image_pipeline_common import (
+    load_env_file,
+    load_existing_json,
+    normalize_detail,
+    parse_model_description,
+    resolve_images,
+    save_json,
+)
 
-SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp"}
 DEFAULT_MODEL = "gemini-2.0-flash"
 DEFAULT_IMAGE_INPUT = "./image"
 DEFAULT_IMAGE_OUTPUT = "./image_descriptions_gemini.json"
 DEFAULT_DETAIL = "high"
-VALID_DETAILS = {"auto", "low", "high"}
 DEFAULT_API_BASE = "https://generativelanguage.googleapis.com/v1beta"
 
 SYSTEM_PROMPT = (
@@ -45,23 +51,6 @@ USER_PROMPT = (
     "}\n"
     "Rules: query_phrases should contain natural user-like search queries such as color + body style + view + scene."
 )
-
-
-def load_env_file(env_path: Path = Path(".env")) -> None:
-    if not env_path.exists() or not env_path.is_file():
-        return
-
-    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
-        line = raw_line.strip()
-        if not line or line.startswith("#"):
-            continue
-        if "=" not in line:
-            continue
-        key, value = line.split("=", 1)
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        if key and key not in os.environ:
-            os.environ[key] = value
 
 
 def parse_args() -> argparse.Namespace:
@@ -123,92 +112,6 @@ def get_timeout_seconds() -> float:
 
 def get_api_base() -> str:
     return os.environ.get("GEMINI_API_BASE", DEFAULT_API_BASE).rstrip("/")
-
-
-def resolve_images(image_dir: Path, specific_image: str | None, run_all: bool) -> list[Path]:
-    if specific_image:
-        image_path = Path(specific_image)
-        if not image_path.is_absolute():
-            candidate = image_dir / specific_image
-            image_path = candidate if candidate.exists() else image_path
-        if not image_path.exists() or not image_path.is_file():
-            raise FileNotFoundError(f"Image not found: {image_path}")
-        return [image_path]
-
-    candidates = sorted(
-        p for p in image_dir.iterdir() if p.is_file() and p.suffix.lower() in SUPPORTED_EXTENSIONS
-    )
-    if not candidates:
-        raise FileNotFoundError(f"No supported images found in: {image_dir}")
-    return candidates if run_all else [candidates[0]]
-
-
-def _extract_json_object(text: str) -> str:
-    cleaned = text.strip()
-    if cleaned.startswith("```"):
-        lines = cleaned.splitlines()
-        if lines and lines[0].startswith("```"):
-            lines = lines[1:]
-        if lines and lines[-1].startswith("```"):
-            lines = lines[:-1]
-        cleaned = "\n".join(lines).strip()
-
-    start = cleaned.find("{")
-    end = cleaned.rfind("}")
-    if start != -1 and end != -1 and end > start:
-        return cleaned[start : end + 1]
-    return cleaned
-
-
-def _safe_parse_json(text: str) -> dict[str, Any] | None:
-    try:
-        obj = json.loads(_extract_json_object(text))
-        if isinstance(obj, dict):
-            return obj
-    except json.JSONDecodeError:
-        return None
-    return None
-
-
-def _clean_structured(structured: dict[str, Any] | None) -> dict[str, Any] | None:
-    if not structured:
-        return None
-    cleaned = dict(structured)
-    cleaned.pop("confidence", None)
-    return cleaned
-
-
-def _build_search_text(structured: dict[str, Any], fallback_desc: str) -> str:
-    if not structured:
-        return fallback_desc
-
-    vehicle = structured.get("vehicle", {}) if isinstance(structured.get("vehicle"), dict) else {}
-    scene = structured.get("scene", {}) if isinstance(structured.get("scene"), dict) else {}
-    attrs = structured.get("visual_attributes", [])
-    queries = structured.get("query_phrases", [])
-
-    parts: list[str] = []
-    for value in [
-        structured.get("short_caption"),
-        structured.get("long_description"),
-        vehicle.get("make"),
-        vehicle.get("model_guess"),
-        vehicle.get("body_style"),
-        vehicle.get("color"),
-        scene.get("environment"),
-        scene.get("lighting"),
-        scene.get("camera_view"),
-        scene.get("motion"),
-    ]:
-        if isinstance(value, str) and value.strip():
-            parts.append(value.strip())
-
-    if isinstance(attrs, list):
-        parts.extend(str(x).strip() for x in attrs if str(x).strip())
-    if isinstance(queries, list):
-        parts.extend(str(x).strip() for x in queries if str(x).strip())
-
-    return " | ".join(parts) if parts else fallback_desc
 
 
 def _read_image_parts(image_path: Path) -> tuple[str, str]:
@@ -284,14 +187,7 @@ def describe_image(api_key: str, model: str, image_path: Path, detail: str) -> d
         raise RuntimeError(f"Gemini API request failed: {exc.reason}") from exc
 
     payload = json.loads(raw)
-    raw_desc = _extract_text_from_gemini_response(payload)
-    structured = _clean_structured(_safe_parse_json(raw_desc))
-    search_text = _build_search_text(structured or {}, raw_desc)
-
-    return {
-        "search_text": search_text,
-        "structured": structured,
-    }
+    return parse_model_description(_extract_text_from_gemini_response(payload))
 
 
 def run_pipeline(
@@ -310,9 +206,7 @@ def run_pipeline(
         str(image_output) if image_output is not None else os.environ.get("GEMINI_IMAGE_OUTPUT", DEFAULT_IMAGE_OUTPUT)
     )
     model_name = model or os.environ.get("GEMINI_MODEL") or DEFAULT_MODEL
-    detail_level = (detail or os.environ.get("GEMINI_IMAGE_DETAIL") or DEFAULT_DETAIL).lower().strip()
-    if detail_level not in VALID_DETAILS:
-        detail_level = DEFAULT_DETAIL
+    detail_level = normalize_detail(detail or os.environ.get("GEMINI_IMAGE_DETAIL"), DEFAULT_DETAIL)
 
     input_path = Path(image_dir_raw).resolve()
     # Support file-path input directly: treat it as single-image mode.
@@ -351,23 +245,6 @@ def run_pipeline(
         "count": len(processed),
         "output_json": str(output_json),
     }
-
-
-def load_existing_json(path: Path) -> dict[str, dict[str, Any]]:
-    if not path.exists():
-        return {}
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return {}
-    if isinstance(data, dict):
-        return data
-    return {}
-
-
-def save_json(path: Path, data: dict[str, dict[str, Any]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def main() -> None:

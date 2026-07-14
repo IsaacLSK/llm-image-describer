@@ -18,8 +18,11 @@ This project reads car images, sends them to an LLM vision model, and stores str
 
 - `grok_image_describer.py`: Core Grok pipeline logic and CLI
 - `gemini_image_describer.py`: Core Gemini pipeline logic and CLI
+- `image_pipeline_common.py`: Shared image selection, response parsing, and safe JSON persistence
 - `route.py`: Grok route-style wrapper/demo for server integration
 - `route_gemini.py`: Gemini route-style wrapper/demo for server integration
+- `route_common.py`: Shared route payload dispatch and error handling
+- `tests/`: Provider-independent unit tests
 - `.env`: Local runtime configuration (not committed)
 - `.env.example`: Shared config template for teammates
 - `image/`: Input images
@@ -163,6 +166,14 @@ python gemini_image_describer.py --all
 
 ```powershell
 python route_gemini.py
+```
+
+## Run Tests
+
+The test suite does not call either external API:
+
+```bash
+python -m unittest discover -s tests -v
 ```
 
 ## Server-Style Route Calls (Grok)
